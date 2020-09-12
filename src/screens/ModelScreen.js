@@ -5,23 +5,35 @@
  * @example           <ModelScreen/>
  */
 
-import React from "react";
-import { StyleSheet, View } from "react-native";
-
-import ModelComponent from "../components/ModelComponent";
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import AddItemComponent from '../components/AddItemComponent';
+import ListComponent from '../components/ListComponent';
 
 export default function ModelScreen() {
+  const [selected, setSelected] = useState([
+    { name: 'Youtube', selected: false },
+    { name: 'Facebook', selected: false },
+    { name: 'Instagram', selected: false },
+    { name: 'WhatsApp', selected: false },
+  ]);
+
+  function newItem(name) {
+    setSelected([{ name: name, selected: false }, ...selected]);
+  }
+
   return (
     <View style={styles.screen}>
-      <ModelComponent text="Hello World" />
+      <ListComponent list={selected} />
+      <AddItemComponent onPress={newItem} />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 });
